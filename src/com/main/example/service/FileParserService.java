@@ -7,9 +7,9 @@ import com.main.example.model.Transfer;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -19,6 +19,7 @@ public class FileParserService {
     private static String output_File = currentDir + "/src/com/main/output/report.txt";
     private static String archive_Dir = currentDir + "/src/com/main/archive";
     private static String accounts_File = currentDir + "/src/com/main/resourses/accounts.txt";
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
     public static void parseFiles() throws FileProcessingException {
         File inputDir = new File(input_Dir);
@@ -38,9 +39,9 @@ public class FileParserService {
                     if (parts.length >= 3) {
                         String fromAccount = parts[0].trim();
                         String toAccount = parts[1].trim();
-                        int amo;
+                        double amo;
                         try {
-                            amo = Integer.parseInt(parts[2].trim());
+                            amo = Double.parseDouble(parts[2].trim());
                             processTransfer(new Transfer(fromAccount, toAccount, amo), accounts);
                             reportList.add(generateReportLine(file.getName(), fromAccount, toAccount, String.valueOf(amo), "successfully processed"));
                         } catch (NumberFormatException | InvalidTransferException e) {
@@ -57,7 +58,6 @@ public class FileParserService {
         saveAccount(accounts);
         saveReport(reportList);
     }
-
 
     private static void saveReport(List<String> reportLines) throws FileProcessingException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(output_File, true))) {
@@ -78,12 +78,9 @@ public class FileParserService {
         }
     }
 
-    private static String generateReportLine(String fileName, String fromAccount, String toAccount, String
-            amo, String status) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private static String generateReportLine(String fileName, String fromAccount, String toAccount, String amo, String status) {
         String timestamp = sdf.format(new Date());
         return String.format("%s | %s | transfer from %s to %s %s | %s", timestamp, fileName, fromAccount, toAccount, amo, status);
-
     }
 
     private static void saveAccount(Map<String, Account> accounts) throws FileProcessingException {
@@ -105,7 +102,7 @@ public class FileParserService {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
                     String accountNumber = parts[0].trim();
-                    int balance = Integer.parseInt(parts[1].trim());
+                    double balance = Double.parseDouble(parts[1].trim());
                     accounts.put(accountNumber, new Account(accountNumber, balance));
                 }
             }
@@ -115,8 +112,7 @@ public class FileParserService {
         return accounts;
     }
 
-    private static void processTransfer(Transfer transfer, Map<String, Account> accounts) throws
-            InvalidTransferException {
+    private static void processTransfer(Transfer transfer, Map<String, Account> accounts) throws InvalidTransferException {
         Account fromAccount = accounts.get(transfer.getFromAccount());
         Account toAccount = accounts.get(transfer.getToAccount());
         if (fromAccount == null || toAccount == null) {
@@ -130,5 +126,33 @@ public class FileParserService {
         }
         fromAccount.setBalance(fromAccount.getBalance() - transfer.getAmo());
         toAccount.setBalance(toAccount.getBalance() + transfer.getAmo());
+    }
+
+    public static List<String> getReportByDateRange(String startDate, String endDate) throws FileProcessingException {
+        List<String> filteredReport = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(output_File))) {
+            String line;
+            Date start = sdf.parse(startDate);
+            Date end = sdf.parse(endDate);
+
+            System.out.println("Start Date - " + start);
+            System.out.println("End Date - " + end);
+
+            while ((line = br.readLine()) != null) {
+                System.out.println("Processing line - " + line);
+                String[] parts = line.split(" \\| ");
+                if (parts.length >= 6) {
+                    Date timestamp = sdf.parse(parts[0].trim());
+                    if (!timestamp.before(start) && !timestamp.after(end)) {
+                        filteredReport.add(line);
+                    }
+                }
+            }
+        } catch (IOException | ParseException e) {
+            throw new FileProcessingException("Error reading report file.");
+        }
+        return filteredReport;
     }
 }

@@ -1,11 +1,10 @@
 package com.main.example.model;
 
 public class Account {
-
     private String accountNumber;
-    private int balance;
+    private double balance;
 
-    public Account(String accountNumber, int balance) {
+    public Account(String accountNumber, double balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
     }
@@ -14,20 +13,11 @@ public class Account {
         return accountNumber;
     }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    @Override
-    public String toString() {
-        return accountNumber + " : " + balance;
     }
 }

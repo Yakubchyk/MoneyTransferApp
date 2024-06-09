@@ -3,9 +3,9 @@ package com.main.example.model;
 public class Transfer {
     private String fromAccount;
     private String toAccount;
-    private int amo;
+    private double amo;
 
-    public Transfer(String fromAccount, String toAccount, int amo) {
+    public Transfer(String fromAccount, String toAccount, double amo) {
         this.fromAccount = fromAccount;
         this.toAccount = toAccount;
         this.amo = amo;
@@ -19,7 +19,7 @@ public class Transfer {
         return toAccount;
     }
 
-    public int getAmo() {
+    public double getAmo() {
         return amo;
     }
 }
