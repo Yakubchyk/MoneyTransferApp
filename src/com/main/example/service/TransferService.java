@@ -5,67 +5,54 @@ import com.main.example.exception.FileProcessingException;
 import java.util.List;
 import java.util.Scanner;
 
-public class TransferServise {
+public class TransferService {
     private final FileParserService fileParserService;
     private final ReportService reportService;
 
-    public TransferServise() {
+    public TransferService() {
         this.fileParserService = new FileParserService();
         this.reportService = new ReportService();
     }
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter 1 to parse files or 2 to view report, 3 to EXIT- : ");
-        while (scanner.hasNext()) {
-            int ch = scanner.nextInt();
+        System.out.println("Enter 1 to parse files, 2 to view report, 3 to EXIT:");
+
+        while (true) {
+            int choice;
             try {
-                if (ch == 1) {
-                    FileParserService.parseFiles();
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
+            }
+
+            try {
+                if (choice == 1) {
+                    fileParserService.parseFiles();
                     System.out.println("Files parsed successfully.");
-                } else if (ch == 2) {
+                } else if (choice == 2) {
                     System.out.println("Enter start date (dd-MM-yyyy HH:mm:ss):");
                     String startDate = scanner.nextLine();
                     System.out.println("Enter end date (dd-MM-yyyy HH:mm:ss):");
                     String endDate = scanner.nextLine();
-                    List<String> report = FileParserService.getReportByDateRange(startDate, endDate);
+                    List<String> report = fileParserService.getReportByDateRange(startDate, endDate);
                     System.out.println("Report from " + startDate + " to " + endDate + ":");
                     if (report.isEmpty()) {
                         System.out.println("No records found.");
                     } else {
                         report.forEach(System.out::println);
                     }
-                } else if (ch == 3) {
+                } else if (choice == 3) {
                     System.out.println("Exit");
                     break;
-
                 } else {
-                    System.out.println("Invalid choice. Enter 1 to parse files or 2 to view report: ");
+                    System.out.println("Invalid choice. Enter 1 to parse files, 2 to view report, 3 to EXIT:");
                 }
-
             } catch (FileProcessingException e) {
-                e.printStackTrace();
+                System.err.println("Error: " + e.getMessage());
             }
         }
         scanner.close();
     }
 }
-
-
-//                try {
-//                    fileParserService.parseFiles();
-//                    System.out.println("Files parsed successfully.");
-//                } catch (Exception e) {
-//                    System.err.println(e.getMessage());
-//                }
-//            } else if (ch == 2) {
-//                try {
-//                    reportService.vievReport();
-//
-//                } catch (Exception e) {
-//                    System.err.println(e.getMessage());
-//                }
-
-
-
-
