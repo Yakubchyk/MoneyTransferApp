@@ -18,6 +18,7 @@
 
 ## Example Workflow
 
+
 1. The application reads transfer files from the `input` directory.
 2. Each file is processed line by line, and transfers are performed between accounts.
 3. Updated account data is saved to the `accounts.txt` file.
@@ -34,4 +35,5 @@ This project is licensed under the MIT License.
 
 
 
-![MoneyTransferApp](https://github.com/Yakubchyk/MoneyTransferApp/assets/135871084/8b4acd0e-82f1-4d94-a795-83d640af95ba)
+![MoneyTransferApp2](https://github.com/Yakubchyk/MoneyTransferApp/assets/135871084/65e02089-7600-4a72-b654-fcd14e642b83)
+
