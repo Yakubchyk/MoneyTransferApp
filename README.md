@@ -1,38 +1,36 @@
-TransferApp
-TransferApp is a Java application designed to facilitate monetary transfers from one account to another. 
-The application reads account and transfer data from text files, processes the transfers, updates account balances,
-and generates a report of the completed operations.
+# TransferApp
 
-Project Structure
-The project is organized into several packages, each responsible for specific functionality:
+**TransferApp** is a Java application designed to facilitate monetary transfers from one account to another. The application reads account and transfer data from text files, processes the transfers, updates account balances, and generates a report of the completed operations.
 
-model: Contains classes for representing data models.
+## Functionality
 
-Account: Represents a bank account with an account number and balance.
-Transfer: Represents a transfer from one account to another with a specified amount.
-exception: Contains classes for handling exceptions.
+### Parse Files
 
-FileProcessingException: Thrown when there are errors in file processing.
-InvalidTransferException: Thrown when transfer data is invalid.
-service: Contains classes implementing the main logic of the application.
+1. Place your transfer files in the `src/com/main/input` directory.
+2. Run the application and choose the option to parse files.
+3. The application will read the transfer files, process the transfers, update account balances, and generate a report.
 
-FileParserService: Responsible for reading and processing files, performing transfers, and generating reports.
+### View Report by Date Range
 
-Running the Application
-Upon running the application, the user is prompted to select an action:
+1. Run the application and choose the option to view the report by date range.
+2. Enter the start and end dates in the format `dd-MM-yyyy HH:mm:ss`.
+3. The application will display the report entries within the specified date range.
 
-Invoke the file parsing operation to process transfer files from the input directory.
-Invoke the operation to output the list of all transfers from the report file.
+## Example Workflow
 
-Example Workflow.
-The application reads transfer files from the input directory.
-Each file is processed line by line, and transfers are performed between accounts.
-Updated account data is saved to the accounts.txt file.
-A report of processed transfers is created and saved to the report.txt file.
-Processed files are moved to the archive directory.
+1. The application reads transfer files from the `input` directory.
+2. Each file is processed line by line, and transfers are performed between accounts.
+3. Updated account data is saved to the `accounts.txt` file.
+4. A report of processed transfers is created and saved to the `report.txt` file.
+5. Processed files are moved to the `archive` directory.
 
-In summary, TransferApp automates the process of monetary transfers, 
-ensures the integrity of account data, and generates reports of completed operations.
+## Contributing
+
+Contributions are welcome! Please create a pull request or submit an issue for any improvements or suggestions.
+
+## License
+
+This project is licensed under the MIT License.
 
 
 
