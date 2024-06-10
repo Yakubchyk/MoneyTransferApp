@@ -1,6 +1,6 @@
-package com.main.example;
+package com.main;
 
-import com.main.example.service.TransferService;
+import com.main.service.TransferService;
 
 public class Main {
     public static void main(String[] args) {

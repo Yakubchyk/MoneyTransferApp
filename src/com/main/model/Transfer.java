@@ -1,4 +1,4 @@
-package com.main.example.model;
+package com.main.model;
 
 public class Transfer {
     private String fromAccount;

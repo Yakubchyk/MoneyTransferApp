@@ -1,11 +1,10 @@
-package com.main.example.service;
+package com.main.service;
 
-import com.main.example.exception.FileProcessingException;
+import com.main.exception.FileProcessingException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 public class ReportService {
     private static String currentDir = System.getProperty("user.dir");

@@ -1,6 +1,6 @@
-package com.main.example.service;
+package com.main.service;
 
-import com.main.example.exception.FileProcessingException;
+import com.main.exception.FileProcessingException;
 
 import java.util.List;
 import java.util.Scanner;

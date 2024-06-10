@@ -1,9 +1,9 @@
-package com.main.example.service;
+package com.main.service;
 
-import com.main.example.exception.FileProcessingException;
-import com.main.example.exception.InvalidTransferException;
-import com.main.example.model.Account;
-import com.main.example.model.Transfer;
+import com.main.exception.FileProcessingException;
+import com.main.exception.InvalidTransferException;
+import com.main.model.Account;
+import com.main.model.Transfer;
 
 import java.io.*;
 import java.nio.file.Files;
