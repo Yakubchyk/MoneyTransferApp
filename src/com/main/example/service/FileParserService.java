@@ -129,7 +129,7 @@ public class FileParserService {
     }
 
     public static List<String> getReportByDateRange(String startDate, String endDate) throws FileProcessingException {
-        List<String> filteredReport = new ArrayList<>();
+        List<String> filterReport = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
         try (BufferedReader br = new BufferedReader(new FileReader(output_File))) {
@@ -144,15 +144,15 @@ public class FileParserService {
                 System.out.println("Processing line - " + line);
                 String[] parts = line.split(" \\| ");
                 if (parts.length >= 6) {
-                    Date timestamp = sdf.parse(parts[0].trim());
-                    if (!timestamp.before(start) && !timestamp.after(end)) {
-                        filteredReport.add(line);
+                    Date timeSt = sdf.parse(parts[0].trim());
+                    if (!timeSt.before(start) && !timeSt.after(end)) {
+                        filterReport.add(line);
                     }
                 }
             }
         } catch (IOException | ParseException e) {
             throw new FileProcessingException("Error reading report file.");
         }
-        return filteredReport;
+        return filterReport;
     }
 }
