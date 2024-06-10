@@ -143,9 +143,9 @@ public class FileParserService {
             while ((line = br.readLine()) != null) {
                 System.out.println("Processing line - " + line);
                 String[] parts = line.split(" \\| ");
-                if (parts.length >= 6) {
+                if (parts.length >= 4) {
                     Date timeSt = sdf.parse(parts[0].trim());
-                    if (!timeSt.before(start) && !timeSt.after(end)) {
+                    if (timeSt.after(start) && timeSt.before(end)) { //Вообще непонятно как это работает.
                         filterReport.add(line);
                     }
                 }
