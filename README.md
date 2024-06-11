@@ -35,5 +35,4 @@ This project is licensed under the MIT License.
 
 
 
-![MoneyTransferApp2](https://github.com/Yakubchyk/MoneyTransferApp/assets/135871084/65e02089-7600-4a72-b654-fcd14e642b83)
-
+![MoneyTransferApp_1](https://github.com/Yakubchyk/MoneyTransferApp/assets/135871084/a07f588f-434c-47b9-9798-2e607738d4a2)
